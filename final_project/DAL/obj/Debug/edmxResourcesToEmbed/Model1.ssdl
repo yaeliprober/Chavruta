@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RivkiS_YaeliPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="categoryName" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="hoursForRequest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="requestId" Type="int" />
+    <Property Name="fromUTCHour" Type="time" Precision="7" />
+    <Property Name="toUTCHour" Type="time" Precision="7" />
+    <Property Name="weekDay" Type="int" />
+  </EntityType>
+  <EntityType Name="Languages">
+    <Key>
+      <PropertyRef Name="languageId" />
+    </Key>
+    <Property Name="languageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Partner">
+    <Key>
+      <PropertyRef Name="partnerId" />
+    </Key>
+    <Property Name="partnerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="req1" Type="int" />
+    <Property Name="req2" Type="int" />
+    <Property Name="statusId" Type="int" />
+  </EntityType>
+  <EntityType Name="RequestParameters">
+    <Key>
+      <PropertyRef Name="requestId" />
+    </Key>
+    <Property Name="requestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="int" />
+    <Property Name="wayLearn" Type="bit" />
+    <Property Name="categoryId" Type="int" />
+    <Property Name="subCategoryId" Type="int" />
+    <Property Name="duration" Type="int" />
+    <Property Name="kindLearn" Type="bit" />
+    <Property Name="found" Type="bit" />
+    <Property Name="cancel" Type="bit" />
+    <Property Name="alertTime" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="statusId" />
+    </Key>
+    <Property Name="statusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="statusValue" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SubCategory">
+    <Key>
+      <PropertyRef Name="subCategoryId" />
+    </Key>
+    <Property Name="subCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="categoryId" Type="int" />
+    <Property Name="subCategoyName" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserLanguages">
+    <Key>
+      <PropertyRef Name="ULId" />
+    </Key>
+    <Property Name="ULId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="int" />
+    <Property Name="languageId" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="nvarchar" MaxLength="9" />
+    <Property Name="userPassword" Type="nvarchar" MaxLength="9" />
+    <Property Name="userMail" Type="nvarchar" MaxLength="20" />
+    <Property Name="userSt" Type="nvarchar" MaxLength="50" />
+    <Property Name="userCity" Type="nvarchar" MaxLength="15" />
+    <Property Name="userCountry" Type="nvarchar" MaxLength="15" />
+    <Property Name="language" Type="int" />
+  </EntityType>
+  <Association Name="fk_constraint1">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="RequestParameters" Type="Self.RequestParameters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="RequestParameters">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_constraint11">
+    <End Role="Languages" Type="Self.Languages" Multiplicity="0..1" />
+    <End Role="UserLanguages" Type="Self.UserLanguages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="languageId" />
+      </Principal>
+      <Dependent Role="UserLanguages">
+        <PropertyRef Name="languageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_constraint3">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+    <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="categoryId" />
+      </Principal>
+      <Dependent Role="SubCategory">
+        <PropertyRef Name="categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_constraint4">
+    <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="0..1" />
+    <End Role="RequestParameters" Type="Self.RequestParameters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="subCategoryId" />
+      </Principal>
+      <Dependent Role="RequestParameters">
+        <PropertyRef Name="subCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_constraint9">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="UserLanguages" Type="Self.UserLanguages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="UserLanguages">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hoursForRequest_RequestParameters">
+    <End Role="RequestParameters" Type="Self.RequestParameters" Multiplicity="0..1" />
+    <End Role="hoursForRequest" Type="Self.hoursForRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestParameters">
+        <PropertyRef Name="requestId" />
+      </Principal>
+      <Dependent Role="hoursForRequest">
+        <PropertyRef Name="requestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Partner_RequestParameters">
+    <End Role="RequestParameters" Type="Self.RequestParameters" Multiplicity="0..1" />
+    <End Role="Partner" Type="Self.Partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestParameters">
+        <PropertyRef Name="requestId" />
+      </Principal>
+      <Dependent Role="Partner">
+        <PropertyRef Name="req1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Partner_RequestParameters1">
+    <End Role="RequestParameters" Type="Self.RequestParameters" Multiplicity="0..1" />
+    <End Role="Partner" Type="Self.Partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestParameters">
+        <PropertyRef Name="requestId" />
+      </Principal>
+      <Dependent Role="Partner">
+        <PropertyRef Name="req2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Partner_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+    <End Role="Partner" Type="Self.Partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="statusId" />
+      </Principal>
+      <Dependent Role="Partner">
+        <PropertyRef Name="statusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Languages">
+    <End Role="Languages" Type="Self.Languages" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="languageId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="language" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RivkiS_YaeliPModelStoreContainer">
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hoursForRequest" EntityType="Self.hoursForRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Partner" EntityType="Self.Partner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestParameters" EntityType="Self.RequestParameters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLanguages" EntityType="Self.UserLanguages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_constraint1" Association="Self.fk_constraint1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="RequestParameters" EntitySet="RequestParameters" />
+    </AssociationSet>
+    <AssociationSet Name="fk_constraint11" Association="Self.fk_constraint11">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="UserLanguages" EntitySet="UserLanguages" />
+    </AssociationSet>
+    <AssociationSet Name="fk_constraint3" Association="Self.fk_constraint3">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="SubCategory" EntitySet="SubCategory" />
+    </AssociationSet>
+    <AssociationSet Name="fk_constraint4" Association="Self.fk_constraint4">
+      <End Role="SubCategory" EntitySet="SubCategory" />
+      <End Role="RequestParameters" EntitySet="RequestParameters" />
+    </AssociationSet>
+    <AssociationSet Name="fk_constraint9" Association="Self.fk_constraint9">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserLanguages" EntitySet="UserLanguages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hoursForRequest_RequestParameters" Association="Self.FK_hoursForRequest_RequestParameters">
+      <End Role="RequestParameters" EntitySet="RequestParameters" />
+      <End Role="hoursForRequest" EntitySet="hoursForRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Partner_RequestParameters" Association="Self.FK_Partner_RequestParameters">
+      <End Role="RequestParameters" EntitySet="RequestParameters" />
+      <End Role="Partner" EntitySet="Partner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Partner_RequestParameters1" Association="Self.FK_Partner_RequestParameters1">
+      <End Role="RequestParameters" EntitySet="RequestParameters" />
+      <End Role="Partner" EntitySet="Partner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Partner_Status" Association="Self.FK_Partner_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Partner" EntitySet="Partner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Languages" Association="Self.FK_Users_Languages">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

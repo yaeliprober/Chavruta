@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RivkiS_YaeliPModelStoreContainer" CdmEntityContainer="RivkiS_YaeliPEntities1">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Languages">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.Language">
+        <MappingFragment StoreEntitySet="Languages">
+          <ScalarProperty Name="languageId" ColumnName="languageId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="statusId" ColumnName="statusId" />
+          <ScalarProperty Name="statusValue" ColumnName="statusValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubCategories">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.SubCategory">
+        <MappingFragment StoreEntitySet="SubCategory">
+          <ScalarProperty Name="subCategoryId" ColumnName="subCategoryId" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="subCategoyName" ColumnName="subCategoyName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLanguages">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.UserLanguage">
+        <MappingFragment StoreEntitySet="UserLanguages">
+          <ScalarProperty Name="ULId" ColumnName="ULId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="languageId" ColumnName="languageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="language" ColumnName="language" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+          <ScalarProperty Name="userMail" ColumnName="userMail" />
+          <ScalarProperty Name="userSt" ColumnName="userSt" />
+          <ScalarProperty Name="userCity" ColumnName="userCity" />
+          <ScalarProperty Name="userCountry" ColumnName="userCountry" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Partners">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.Partner">
+        <MappingFragment StoreEntitySet="Partner">
+          <ScalarProperty Name="statusId" ColumnName="statusId" />
+          <ScalarProperty Name="req2" ColumnName="req2" />
+          <ScalarProperty Name="req1" ColumnName="req1" />
+          <ScalarProperty Name="partnerId" ColumnName="partnerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hoursForRequests">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.hoursForRequest">
+        <MappingFragment StoreEntitySet="hoursForRequest">
+          <ScalarProperty Name="weekDay" ColumnName="weekDay" />
+          <ScalarProperty Name="toUTCHour" ColumnName="toUTCHour" />
+          <ScalarProperty Name="fromUTCHour" ColumnName="fromUTCHour" />
+          <ScalarProperty Name="requestId" ColumnName="requestId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestParameters">
+      <EntityTypeMapping TypeName="RivkiS_YaeliPModel.RequestParameter">
+        <MappingFragment StoreEntitySet="RequestParameters">
+          <ScalarProperty Name="alertTime" ColumnName="alertTime" />
+          <ScalarProperty Name="cancel" ColumnName="cancel" />
+          <ScalarProperty Name="found" ColumnName="found" />
+          <ScalarProperty Name="kindLearn" ColumnName="kindLearn" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="subCategoryId" ColumnName="subCategoryId" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="wayLearn" ColumnName="wayLearn" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="requestId" ColumnName="requestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

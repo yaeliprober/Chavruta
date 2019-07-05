@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RivkiS_YaeliPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="categoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SubCategories" Relationship="Self.fk_constraint3" FromRole="Categories" ToRole="SubCategory" />
+  </EntityType>
+  <EntityType Name="Language">
+    <Key>
+      <PropertyRef Name="languageId" />
+    </Key>
+    <Property Name="languageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserLanguages" Relationship="Self.fk_constraint11" FromRole="Languages" ToRole="UserLanguages" />
+    <NavigationProperty Name="Users" Relationship="RivkiS_YaeliPModel.FK_Users_Languages" FromRole="Language" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="statusId" />
+    </Key>
+    <Property Name="statusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="statusValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Partners" Relationship="RivkiS_YaeliPModel.FK_Partner_Status" FromRole="Status" ToRole="Partner" />
+  </EntityType>
+  <EntityType Name="SubCategory">
+    <Key>
+      <PropertyRef Name="subCategoryId" />
+    </Key>
+    <Property Name="subCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="subCategoyName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category" Relationship="Self.fk_constraint3" FromRole="SubCategory" ToRole="Categories" />
+    <NavigationProperty Name="RequestParameters" Relationship="RivkiS_YaeliPModel.fk_constraint4" FromRole="SubCategory" ToRole="RequestParameter" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserLanguage">
+    <Key>
+      <PropertyRef Name="ULId" />
+    </Key>
+    <Property Name="ULId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="Int32" />
+    <Property Name="languageId" Type="Int32" />
+    <NavigationProperty Name="Language" Relationship="Self.fk_constraint11" FromRole="UserLanguages" ToRole="Languages" />
+    <NavigationProperty Name="User" Relationship="Self.fk_constraint9" FromRole="UserLanguages" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+    <Property Name="userPassword" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+    <Property Name="userMail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="userSt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userCity" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="userCountry" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserLanguages" Relationship="Self.fk_constraint9" FromRole="Users" ToRole="UserLanguages" />
+    <Property Name="language" Type="Int32" />
+    <NavigationProperty Name="Language1" Relationship="RivkiS_YaeliPModel.FK_Users_Languages" FromRole="User" ToRole="Language" />
+    <NavigationProperty Name="RequestParameters" Relationship="RivkiS_YaeliPModel.fk_constraint1" FromRole="User" ToRole="RequestParameter" />
+  </EntityType>
+  <Association Name="fk_constraint3">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="categoryId" />
+      </Principal>
+      <Dependent Role="SubCategory">
+        <PropertyRef Name="categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_constraint11">
+    <End Role="Languages" Type="Self.Language" Multiplicity="0..1" />
+    <End Role="UserLanguages" Type="Self.UserLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="languageId" />
+      </Principal>
+      <Dependent Role="UserLanguages">
+        <PropertyRef Name="languageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_constraint9">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserLanguages" Type="Self.UserLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="UserLanguages">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RivkiS_YaeliPEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Languages" EntityType="Self.Language" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="UserLanguages" EntityType="Self.UserLanguage" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="fk_constraint3" Association="Self.fk_constraint3">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="SubCategory" EntitySet="SubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="fk_constraint11" Association="Self.fk_constraint11">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="UserLanguages" EntitySet="UserLanguages" />
+    </AssociationSet>
+    <AssociationSet Name="fk_constraint9" Association="Self.fk_constraint9">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserLanguages" EntitySet="UserLanguages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Languages" Association="RivkiS_YaeliPModel.FK_Users_Languages">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Partners" EntityType="RivkiS_YaeliPModel.Partner" />
+    <AssociationSet Name="FK_Partner_Status" Association="RivkiS_YaeliPModel.FK_Partner_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Partner" EntitySet="Partners" />
+    </AssociationSet>
+    <EntitySet Name="hoursForRequests" EntityType="RivkiS_YaeliPModel.hoursForRequest" />
+    <EntitySet Name="RequestParameters" EntityType="RivkiS_YaeliPModel.RequestParameter" />
+    <AssociationSet Name="FK_hoursForRequest_RequestParameters" Association="RivkiS_YaeliPModel.FK_hoursForRequest_RequestParameters">
+      <End Role="RequestParameter" EntitySet="RequestParameters" />
+      <End Role="hoursForRequest" EntitySet="hoursForRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Partner_RequestParameters" Association="RivkiS_YaeliPModel.FK_Partner_RequestParameters">
+      <End Role="RequestParameter" EntitySet="RequestParameters" />
+      <End Role="Partner" EntitySet="Partners" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Partner_RequestParameters1" Association="RivkiS_YaeliPModel.FK_Partner_RequestParameters1">
+      <End Role="RequestParameter" EntitySet="RequestParameters" />
+      <End Role="Partner" EntitySet="Partners" />
+    </AssociationSet>
+    <AssociationSet Name="fk_constraint1" Association="RivkiS_YaeliPModel.fk_constraint1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="RequestParameter" EntitySet="RequestParameters" />
+    </AssociationSet>
+    <AssociationSet Name="fk_constraint4" Association="RivkiS_YaeliPModel.fk_constraint4">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="RequestParameter" EntitySet="RequestParameters" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Users_Languages">
+    <End Type="RivkiS_YaeliPModel.Language" Role="Language" Multiplicity="0..1" />
+    <End Type="RivkiS_YaeliPModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="languageId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="language" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Partner">
+    <Key>
+      <PropertyRef Name="partnerId" />
+    </Key>
+    <Property Name="partnerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="req1" Type="Int32" />
+    <Property Name="req2" Type="Int32" />
+    <Property Name="statusId" Type="Int32" />
+    <NavigationProperty Name="Status" Relationship="RivkiS_YaeliPModel.FK_Partner_Status" FromRole="Partner" ToRole="Status" />
+    <NavigationProperty Name="RequestParameter" Relationship="RivkiS_YaeliPModel.FK_Partner_RequestParameters" FromRole="Partner" ToRole="RequestParameter" />
+    <NavigationProperty Name="RequestParameter1" Relationship="RivkiS_YaeliPModel.FK_Partner_RequestParameters1" FromRole="Partner" ToRole="RequestParameter" />
+  </EntityType>
+  <Association Name="FK_Partner_Status">
+    <End Type="RivkiS_YaeliPModel.Status" Role="Status" Multiplicity="0..1" />
+    <End Type="RivkiS_YaeliPModel.Partner" Role="Partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="statusId" />
+      </Principal>
+      <Dependent Role="Partner">
+        <PropertyRef Name="statusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="hoursForRequest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="requestId" Type="Int32" />
+    <Property Name="fromUTCHour" Type="Time" Precision="7" />
+    <Property Name="toUTCHour" Type="Time" Precision="7" />
+    <Property Name="weekDay" Type="Int32" />
+    <NavigationProperty Name="RequestParameter" Relationship="RivkiS_YaeliPModel.FK_hoursForRequest_RequestParameters" FromRole="hoursForRequest" ToRole="RequestParameter" />
+  </EntityType>
+  <EntityType Name="RequestParameter">
+    <Key>
+      <PropertyRef Name="requestId" />
+    </Key>
+    <Property Name="requestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="Int32" />
+    <Property Name="wayLearn" Type="Boolean" />
+    <Property Name="categoryId" Type="Int32" />
+    <Property Name="subCategoryId" Type="Int32" />
+    <Property Name="duration" Type="Int32" />
+    <Property Name="kindLearn" Type="Boolean" />
+    <Property Name="found" Type="Boolean" />
+    <Property Name="cancel" Type="Boolean" />
+    <Property Name="alertTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="hoursForRequests" Relationship="RivkiS_YaeliPModel.FK_hoursForRequest_RequestParameters" FromRole="RequestParameter" ToRole="hoursForRequest" />
+    <NavigationProperty Name="Partners" Relationship="RivkiS_YaeliPModel.FK_Partner_RequestParameters" FromRole="RequestParameter" ToRole="Partner" />
+    <NavigationProperty Name="Partners1" Relationship="RivkiS_YaeliPModel.FK_Partner_RequestParameters1" FromRole="RequestParameter" ToRole="Partner" />
+    <NavigationProperty Name="User" Relationship="RivkiS_YaeliPModel.fk_constraint1" FromRole="RequestParameter" ToRole="User" />
+    <NavigationProperty Name="SubCategory" Relationship="RivkiS_YaeliPModel.fk_constraint4" FromRole="RequestParameter" ToRole="SubCategory" />
+  </EntityType>
+  <Association Name="FK_hoursForRequest_RequestParameters">
+    <End Type="RivkiS_YaeliPModel.RequestParameter" Role="RequestParameter" Multiplicity="0..1" />
+    <End Type="RivkiS_YaeliPModel.hoursForRequest" Role="hoursForRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestParameter">
+        <PropertyRef Name="requestId" />
+      </Principal>
+      <Dependent Role="hoursForRequest">
+        <PropertyRef Name="requestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Partner_RequestParameters">
+    <End Type="RivkiS_YaeliPModel.RequestParameter" Role="RequestParameter" Multiplicity="0..1" />
+    <End Type="RivkiS_YaeliPModel.Partner" Role="Partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestParameter">
+        <PropertyRef Name="requestId" />
+      </Principal>
+      <Dependent Role="Partner">
+        <PropertyRef Name="req1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Partner_RequestParameters1">
+    <End Type="RivkiS_YaeliPModel.RequestParameter" Role="RequestParameter" Multiplicity="0..1" />
+    <End Type="RivkiS_YaeliPModel.Partner" Role="Partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestParameter">
+        <PropertyRef Name="requestId" />
+      </Principal>
+      <Dependent Role="Partner">
+        <PropertyRef Name="req2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_constraint1">
+    <End Type="RivkiS_YaeliPModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="RivkiS_YaeliPModel.RequestParameter" Role="RequestParameter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="RequestParameter">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_constraint4">
+    <End Type="RivkiS_YaeliPModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="RivkiS_YaeliPModel.RequestParameter" Role="RequestParameter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="subCategoryId" />
+      </Principal>
+      <Dependent Role="RequestParameter">
+        <PropertyRef Name="subCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

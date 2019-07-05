@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="53ec6f50056d48bfa7d3d6bda9f7decf" Name="Diagram1">
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.Category" Width="1.5" PointX="2" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.Language" Width="1.5" PointX="4" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.Status" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.SubCategory" Width="1.5" PointX="3.875" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.sysdiagram" Width="1.5" PointX="14.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.UserLanguage" Width="1.5" PointX="4" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.User" Width="1.5" PointX="6.125" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.fk_constraint3" ManuallyRouted="false" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.fk_constraint11" ManuallyRouted="false" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.fk_constraint9" ManuallyRouted="false" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.FK_Users_Languages" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.Partner" Width="1.5" PointX="8.25" PointY="4.75" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.FK_Partner_Status" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.hoursForRequest" Width="1.5" PointX="8.25" PointY="7.375" />
+        <EntityTypeShape EntityType="RivkiS_YaeliPModel.RequestParameter" Width="1.5" PointX="6.125" PointY="5.375" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.FK_hoursForRequest_RequestParameters" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.FK_Partner_RequestParameters" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.FK_Partner_RequestParameters1" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.fk_constraint1" />
+        <AssociationConnector Association="RivkiS_YaeliPModel.fk_constraint4" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
